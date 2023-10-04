@@ -2,7 +2,7 @@ import Navbar from "@/components/navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
+import ConvexClientProvider from "./ConvexClientProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="md:px-24 bg-white">
-          <Navbar />
-          {children}
-        </main>
+        <ConvexClientProvider>
+          <main className="md:px-24 bg-white">
+            <Navbar />
+            {children}
+          </main>
+        </ConvexClientProvider>
       </body>
     </html>
   );
