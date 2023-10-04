@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="md:px-24 p-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-200 via-blue-100 to-white">
+        <main className="md:px-24 bg-white">
           <Navbar />
           {children}
         </main>

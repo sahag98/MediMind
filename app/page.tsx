@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
+    <main className="flex h-[calc(100vh-100px)] px-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white  to-white flex-col items-center justify-center">
       <h1 className="text-primary font-bold text-6xl tracking-wide">
         MediMind
       </h1>
@@ -11,9 +12,15 @@ export default function Home() {
         Experience instant symptom analysis, consultations with our advanced AI
         doctor.
       </p>
-      <Button className="mt-5" size={"lg"}>
+      <Link
+        href="/chat"
+        className={buttonVariants({
+          size: "lg",
+          className: "mt-5",
+        })}
+      >
         Get Started
-      </Button>
+      </Link>
     </main>
   );
 }
