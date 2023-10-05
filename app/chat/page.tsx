@@ -31,8 +31,8 @@ const Chat = () => {
               How are you feeling today?
             </span>
             <span className="text-secondary-foreground text-center text-sm mb-10">
-              The more accurate your responses are, the easier and faster I'll
-              be able to help you.
+              The more accurate your responses are, the easier and faster
+              I&apos;ll be able to help you.
             </span>
             {entries?.map((entry) => {
               return (
