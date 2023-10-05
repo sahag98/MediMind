@@ -12,6 +12,23 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const startConversation = useAction(api.chat.handlePlayerAction);
   const entries = useQuery(api.chat.getAllEntries);
+  // const [isloading, setIsLoading] = useState(false);
+  // console.log(isloading);
+  const handleSubmit = (e: any) => {
+    // setIsLoading(true);
+    e.preventDefault();
+    try {
+      startConversation({ message });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setIsLoading(false);
+    }
+    setMessage("");
+  };
+
+  // const array = entries[0].response.split("[");
+  // console.log(array[1]);
   return (
     <div className="flex px-4">
       <ChatHistory />
@@ -33,46 +50,46 @@ const Chat = () => {
               The more accurate your responses, the easier and faster I&apos;ll
               be able to help you.
             </span>
-            {entries?.map((entry) => {
-              return (
-                <div className="flex flex-col gap-2 mb-5" key={entry._id}>
-                  {entry.input && (
-                    <div className="bg-[#e3ebf3] rounded-md p-2">
-                      <h2 className="font-semibold">User</h2>
-                      <p className="text-secondary-foreground">{entry.input}</p>
-                    </div>
-                  )}
-                  {entry.response && (
-                    <div className="bg-secondary p-2 rounded-md">
-                      <section className="flex items-center gap-1">
-                        {" "}
-                        <h2 className="font-semibold">MediMind</h2>
-                        <Bot />
-                      </section>
+            <div className="flex  flex-col gap-2">
+              {entries?.map((entry) => {
+                return (
+                  <div className="flex flex-col gap-2 md:p-2" key={entry._id}>
+                    {entry.input && (
+                      <div className="bg-[#e3ebf3] rounded-md p-2">
+                        <h2 className="font-semibold">User</h2>
+                        <p className="text-secondary-foreground">
+                          {entry.input}
+                        </p>
+                      </div>
+                    )}
+                    {entry.response && (
+                      <div className="bg-secondary p-2 rounded-md">
+                        <section className="flex items-center gap-1">
+                          {" "}
+                          <h2 className="font-semibold">MediMind</h2>
+                          <Bot />
+                        </section>
 
-                      <p className="text-secondary-foreground">
-                        {entry.response}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                        <p className="text-secondary-foreground">
+                          {entry.response}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            startConversation({ message });
-            setMessage("");
-          }}
+          onSubmit={handleSubmit}
           className="flex fixed z-10 bottom-4 px-4 items-center justify-center w-full"
         >
           <Input
             placeholder="How are you feeling?"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="md:w-4/5 shadow-md shadow-primary/20 bg-secondary"
+            className="md:w-1/2 shadow-md shadow-primary/20 bg-secondary"
           />
           <button>
             <SendHorizontal className="ml-2 h-12 w-12 text-primary hover:bg-primary/10 rounded-full transition-all p-2" />
