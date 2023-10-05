@@ -14,11 +14,11 @@ const Chat = () => {
   const entries = useQuery(api.chat.getAllEntries);
 
   return (
-    <div className="flex h-[calc(100vh-100px)] px-4">
+    <div className="flex h-screen px-4">
       <ChatHistory />
 
-      <div className="w-full items-center  flex flex-col justify-between">
-        <div className="flex flex-col items-center overflow-y-auto justify-center gap-5">
+      <div className="w-full py-5 items-center mt-5 flex flex-col justify-between">
+        <div className="flex flex-col items-center overflow-y-auto scrollbar-hide justify-center gap-5">
           <Image
             src="/chat-img.png"
             className="w-64 mt-10"
@@ -36,7 +36,7 @@ const Chat = () => {
             </span>
             {entries?.map((entry) => {
               return (
-                <div className="flex flex-col gap-2" key={entry._id}>
+                <div className="flex flex-col gap-2 mb-5" key={entry._id}>
                   {entry.input && (
                     <div className="bg-[#e3ebf3] rounded-md p-2">
                       <h2 className="font-semibold">User</h2>

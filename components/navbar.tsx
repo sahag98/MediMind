@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className="flex backdrop-blur-md border-b p-2 items-center justify-between">
+    <nav className="flex fixed w-full backdrop-blur-md border-b p-2 items-center justify-between">
       <Link href="/">
         <Image
           src="/medimind.png"

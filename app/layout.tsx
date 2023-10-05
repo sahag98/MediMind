@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClientProvider>
-          <main className="md:px-24 bg-white">
+          <main className="md:px-24 relative bg-white">
             <Navbar />
             {children}
           </main>

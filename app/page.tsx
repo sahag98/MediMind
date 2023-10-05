@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex h-[calc(100vh-100px)] px-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white  to-white flex-col items-center justify-center">
+    <main className="flex h-screen px-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white  to-white flex-col items-center justify-center">
       <h1 className="text-primary font-bold text-6xl tracking-wide">
         MediMind
       </h1>
