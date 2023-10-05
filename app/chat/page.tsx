@@ -17,7 +17,7 @@ const Chat = () => {
     <div className="flex h-screen px-4">
       <ChatHistory />
 
-      <div className="w-full py-5 items-center mt-5 flex flex-col justify-between">
+      <div className="w-full relative py-5 items-center mt-5 flex flex-col justify-between">
         <div className="flex flex-col items-center overflow-y-auto scrollbar-hide justify-center gap-5">
           <Image
             src="/chat-img.png"
@@ -67,7 +67,7 @@ const Chat = () => {
             startConversation({ message });
             setMessage("");
           }}
-          className="flex items-center justify-center w-full"
+          className="flex absolute bottom-4 items-center justify-center w-full"
         >
           <Input
             placeholder="How are you feeling?"
