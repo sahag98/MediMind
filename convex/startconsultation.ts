@@ -60,7 +60,7 @@ export const setupConsultation = internalAction({
       throw new Error("Consultation not found.");
     }
 
-    const input = `introduce yourself as MediMind an ai doctor that will consult the user only for medical help, if the user says anything that is not medical tell them you only respond to medical questions. Mention that they should always seek advice from human doctor and not rely on your response. only and only respond to it if its a medical question: Provide treatments for the user and give shorter responses. Only recommend 3 ways.`;
+    const input = `introduce yourself as MediMind an ai doctor that will consult the user only for medical help, if the user says anything that is not medical tell them you only respond to medical questions. Mention that they should always seek advice from human doctor and not rely on your response. only and only respond to it if its a medical question: Provide treatments for the user and give shorter responses. Only recommend 3 ways. Use emojis as well.`;
 
     const completion = await openai.chat.completions.create({
       messages: [
