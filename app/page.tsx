@@ -31,19 +31,16 @@ export default function Home() {
           </p>
           <section className="flex space-x-4">
             <Disclaimer />
-            <Button
-              className="mt-5 px-2 space-x-3"
-              onClick={async (e) => {
-                e.preventDefault();
-                const chatId = await startConsultation({});
-                router.push(`/chat/${chatId}`);
-              }}
-              variant={"outline"}
-              size={"lg"}
-            >
-              <span>How it works</span>
-              <Brain className="w-6" />
-            </Button>
+            <Link href="#works">
+              <Button
+                className="mt-5 px-2 space-x-3"
+                variant={"outline"}
+                size={"lg"}
+              >
+                <span>How it works</span>
+                <Brain className="w-6" />
+              </Button>
+            </Link>
           </section>
         </div>
         <Image

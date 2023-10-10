@@ -2,7 +2,10 @@ import React from "react";
 
 const HowitWorks = () => {
   return (
-    <div className="flex justify-center gap-7 mb-10 items-center flex-col">
+    <div
+      id="works"
+      className="flex justify-center gap-7 mb-10 items-center flex-col"
+    >
       <h2 className="text-center text-3xl font-bold text-secondary-foreground">
         How It Works
       </h2>
