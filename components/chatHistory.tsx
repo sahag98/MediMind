@@ -31,12 +31,29 @@ const ChatHistory = ({ params }: any) => {
   };
 
   return (
-    <div className="flex border-r relative min-h-screen flex-col items-center w-72 gap-10 mt-[73px]">
-      <section className="flex mt-5 items-center gap-2">
-        <h2 className="font-bold text-secondary-foreground">Chat History</h2>
-        <History className="text-secondary-foreground" />
-      </section>
-      <div className="w-full p-2">
+    <div className="flex border-r relative h-screen flex-col items-center w-72 gap-10 mt-[73px]">
+      <div className="w-full">
+        <section className="flex mt-5 px-2 justify-between items-center gap-2">
+          <div className="flex items-center gap-2">
+            <h2 className="font-bold text-secondary-foreground">History</h2>
+            <History className="text-secondary-foreground" />
+          </div>
+          <Button
+            variant={"ghost"}
+            onClick={async (e) => {
+              e.preventDefault();
+              const chatId = await startConsultation({});
+              router.push(`/chat/${chatId}`);
+            }}
+            className={
+              "rounded-md text-primary bg-primary/25 transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between border-secondary-foreground p-3 h-12"
+            }
+          >
+            <Plus />
+          </Button>
+        </section>
+      </div>
+      <div className="w-full p-2 overflow-y-auto">
         {entries?.map((entry) => (
           <div key={entry._id}>
             {entry._id == params ? (
@@ -69,20 +86,6 @@ const ChatHistory = ({ params }: any) => {
             )}
           </div>
         ))}
-        <Button
-          variant={"ghost"}
-          onClick={async (e) => {
-            e.preventDefault();
-            const chatId = await startConsultation({});
-            router.push(`/chat/${chatId}`);
-          }}
-          className={
-            "rounded-md text-primary bg-primary/25 transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground p-2 h-12"
-          }
-        >
-          <span>Start New!</span>
-          <Plus />
-        </Button>
       </div>
     </div>
   );

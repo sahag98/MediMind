@@ -7,6 +7,7 @@ import {
 } from "./_generated/server";
 import OpenAI from "openai";
 import { api, internal } from "./_generated/api";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 
 const openai = new OpenAI();
 

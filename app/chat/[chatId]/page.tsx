@@ -2,12 +2,13 @@
 import ChatHistory from "@/components/chatHistory";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bot, SendHorizontal, User2, UserCircle2 } from "lucide-react";
+import { Bot, Mic, SendHorizontal, User2, UserCircle2 } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { useAction, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useChat } from "ai/react";
 
 const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const [message, setMessage] = useState("");
@@ -15,18 +16,25 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const consultationId = props.params.chatId;
   const contentRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  console.log(messages);
   const startConversation = useAction(api.chat.handlePlayerAction);
   const entries = useQuery(api.chat.getAllEntries, {
     chatId: consultationId,
   });
   // const [isloading, setIsLoading] = useState(false);
   // console.log(isloading);
-  const handleSubmit = async (e: any) => {
+  const handleMsgSubmit = async (e: any) => {
+    if (message.length == 0) {
+      return;
+    }
     e.preventDefault();
     setIsLoading(true);
     console.log("submitting message");
+
     try {
       await startConversation({ message, consultationId });
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -106,17 +114,25 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
           </div>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleMsgSubmit}
           className="flex fixed z-10 bottom-4 px-4 items-center justify-center w-full"
         >
+          <Mic className="mr-2 h-12 w-12 text-primary hover:bg-primary/10 rounded-full transition-all p-2" />
           <Input
+            disabled={isLoading}
             placeholder="How are you feeling?"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="md:w-1/2 shadow-md shadow-primary/20 bg-secondary"
           />
-          <button>
-            <SendHorizontal className="ml-2 h-12 w-12 text-primary hover:bg-primary/10 rounded-full transition-all p-2" />
+          <button disabled={isLoading}>
+            <SendHorizontal
+              className={
+                isLoading
+                  ? "ml-2 h-12 w-12 text-secondary rounded-full transition-all p-2"
+                  : "ml-2 h-12 w-12 text-primary hover:bg-primary/10 rounded-full transition-all p-2"
+              }
+            />
           </button>
         </form>
       </div>
