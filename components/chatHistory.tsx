@@ -1,12 +1,89 @@
-import React from "react";
-import { Button } from "./ui/button";
+"use client";
+import React, { useState } from "react";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { ArrowBigRight, History, Plus } from "lucide-react";
 
-const ChatHistory = () => {
+const ChatHistory = ({ params }: any) => {
+  console.log("param :", params);
+
+  const entries = useQuery(api.startconsultation.getAllChats);
+
+  const [selected, setSelected] = useState("");
+  const router = useRouter();
+
+  const convertMillisecondsToDate = (milliseconds: any) => {
+    const date = new Date(milliseconds);
+
+    return date.toLocaleDateString();
+  };
+
+  const startConsultation = useMutation(
+    api.startconsultation.createConsultation
+  );
+
+  const handleHistory = (id: any) => {
+    setSelected(id);
+    router.push(`/chat/${id}`);
+  };
+
   return (
-    <div className="border-r border-l fixed h-screen z-30 bg-white justify-center items-center mt-[73px] hidden md:flex w-1/6 ">
-      <Button>
-        <h2 className="font-bold">Sign in to view your history.</h2>
-      </Button>
+    <div className="flex border-r relative min-h-screen flex-col items-center w-72 gap-10 mt-[73px]">
+      <section className="flex mt-5 items-center gap-2">
+        <h2 className="font-bold text-secondary-foreground">Chat History</h2>
+        <History className="text-secondary-foreground" />
+      </section>
+      <div className="w-full p-2">
+        {entries?.map((entry) => (
+          <div key={entry._id}>
+            {entry._id == params ? (
+              <Button
+                onClick={() => handleHistory(entry._id)}
+                className={
+                  "text-primary-foreground transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
+                }
+                key={entry._id}
+              >
+                <span className="">
+                  {convertMillisecondsToDate(entry._creationTime)}
+                </span>
+                <ArrowBigRight className="" />
+              </Button>
+            ) : (
+              <Button
+                variant={"ghost"}
+                onClick={() => handleHistory(entry._id)}
+                className={
+                  "text-primary transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
+                }
+                key={entry._id}
+              >
+                <span className="">
+                  {convertMillisecondsToDate(entry._creationTime)}
+                </span>
+                <ArrowBigRight className="" />
+              </Button>
+            )}
+          </div>
+        ))}
+        <Button
+          variant={"ghost"}
+          onClick={async (e) => {
+            e.preventDefault();
+            const chatId = await startConsultation({});
+            router.push(`/chat/${chatId}`);
+          }}
+          className={
+            "rounded-md text-primary bg-primary/25 transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground p-2 h-12"
+          }
+        >
+          <span>Start New!</span>
+          <Plus />
+        </Button>
+      </div>
     </div>
   );
 };

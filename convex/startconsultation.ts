@@ -1,5 +1,10 @@
 import { v } from "convex/values";
-import { internalAction, internalQuery, mutation } from "./_generated/server";
+import {
+  internalAction,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 import OpenAI from "openai";
 import { api, internal } from "./_generated/api";
 
@@ -26,6 +31,17 @@ export const getConsultation = internalQuery({
   },
   handler: async (ctx, args) => {
     return await ctx.db.get(args.consultationId);
+  },
+});
+
+export const getAllChats = query({
+  // args: {
+  //   chatId: v.id("consultations"),
+  // },
+  handler: async (ctx) => {
+    const entries = await ctx.db.query("consultations").collect();
+
+    return entries;
   },
 });
 

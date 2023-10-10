@@ -1,10 +1,13 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, History } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   return (
     <nav className="flex fixed w-full md:px-24 px-4 z-10 backdrop-blur-md border-b p-2 items-center justify-between">
       <Link href="/">
@@ -17,10 +20,14 @@ const Navbar = () => {
         />
       </Link>
       <ul className="flex items-center gap-x-3">
+        <Button
+          onClick={() => router.push("/history")}
+          className="bg-white md:hidden border border-primary"
+        >
+          <span className="text-primary">History</span>{" "}
+          <History className="ml-2 text-primary" />
+        </Button>
         <Button variant={"outline"}>Sign In</Button>
-        {/* <Button>
-          <span>Get Started</span> <ArrowRight className="ml-2" />
-        </Button> */}
       </ul>
     </nav>
   );

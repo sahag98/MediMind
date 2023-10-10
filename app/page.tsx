@@ -11,6 +11,7 @@ export default function Home() {
   const startConsultation = useMutation(
     api.startconsultation.createConsultation
   );
+
   return (
     <main className="flex h-screen px-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white  to-white flex-col items-center justify-center">
       <h1 className="text-primary font-bold text-6xl tracking-wide">
@@ -23,7 +24,7 @@ export default function Home() {
         className="mt-5"
         onClick={async (e) => {
           e.preventDefault();
-          const chatId = await startConsultation();
+          const chatId = await startConsultation({});
           router.push(`/chat/${chatId}`);
         }}
         size={"lg"}

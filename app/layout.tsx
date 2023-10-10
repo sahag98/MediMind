@@ -22,8 +22,8 @@ export default function RootLayout({
         <ConvexClientProvider>
           <main className="md:px-24 flex justify-center relative bg-white">
             <Navbar />
-            {children}
           </main>
+          {children}
         </ConvexClientProvider>
       </body>
     </html>

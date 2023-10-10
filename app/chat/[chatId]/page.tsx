@@ -11,6 +11,7 @@ import { api } from "../../../convex/_generated/api";
 
 const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const [message, setMessage] = useState("");
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const consultationId = props.params.chatId;
   const contentRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,9 +38,9 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   console.log(isLoading);
 
   return (
-    <div className="flex relative min-h-screen w-full md:px-0 px-4">
-      <div className="md:w-1/4">
-        <ChatHistory />
+    <div className="flex relative min-h-screen w-full px-4 md:px-0">
+      <div className="md:w-1/4 hidden md:flex">
+        <ChatHistory params={consultationId} />
       </div>
 
       <div className="md:w-1/2 w-full relative mt-20 flex flex-col justify-center items-center">
@@ -59,7 +60,6 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
               The more accurate your responses, the easier and faster I&apos;ll
               be able to help you.
             </span>
-
             <div
               ref={contentRef}
               className="flex flex-col overflow-y-auto md:gap-0 gap-2"
