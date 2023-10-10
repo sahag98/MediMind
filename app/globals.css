@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+}
 
 @layer base {
   :root {
@@ -50,6 +58,11 @@
     --ring: 224.3 76.3% 48%;
   }
 }
+
+.circle {
+  @apply w-3 h-3 my-5 mx-1 bg-gray-500 rounded-full;
+}
+
 
  
 /* @layer base {

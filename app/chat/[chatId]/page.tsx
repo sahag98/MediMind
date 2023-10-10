@@ -2,39 +2,48 @@
 import ChatHistory from "@/components/chatHistory";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bot, SendHorizontal } from "lucide-react";
+import { Bot, SendHorizontal, User2, UserCircle2 } from "lucide-react";
+import { Id } from "@/convex/_generated/dataModel";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAction, useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "../../../convex/_generated/api";
 
-const Chat = () => {
+const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const [message, setMessage] = useState("");
+  const consultationId = props.params.chatId;
+  const contentRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   const startConversation = useAction(api.chat.handlePlayerAction);
-  const entries = useQuery(api.chat.getAllEntries);
+  const entries = useQuery(api.chat.getAllEntries, {
+    chatId: consultationId,
+  });
   // const [isloading, setIsLoading] = useState(false);
   // console.log(isloading);
-  const handleSubmit = (e: any) => {
-    // setIsLoading(true);
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
+    console.log("submitting message");
     try {
-      startConversation({ message });
+      await startConversation({ message, consultationId });
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
     setMessage("");
   };
+  console.log(isLoading);
 
-  // const array = entries[0].response.split("[");
-  // console.log(array[1]);
   return (
-    <div className="flex px-4">
-      <ChatHistory />
+    <div className="flex relative min-h-screen w-full md:px-0 px-4">
+      <div className="md:w-1/4">
+        <ChatHistory />
+      </div>
 
-      <div className="w-full relative items-center flex flex-col justify-between">
-        <div className="flex flex-col items-center overflow-y-auto scrollbar-hide justify-center gap-5">
+      <div className="md:w-1/2 w-full relative mt-20 flex flex-col justify-center items-center">
+        <div className="flex flex-col  items-center overflow-y-auto scrollbar-hide justify-center gap-5">
           <Image
             src="/chat-img.png"
             className="w-64 mt-10"
@@ -50,20 +59,28 @@ const Chat = () => {
               The more accurate your responses, the easier and faster I&apos;ll
               be able to help you.
             </span>
-            <div className="flex  flex-col gap-2">
+
+            <div
+              ref={contentRef}
+              className="flex flex-col overflow-y-auto md:gap-0 gap-2"
+            >
               {entries?.map((entry) => {
                 return (
                   <div className="flex flex-col gap-2 md:p-2" key={entry._id}>
                     {entry.input && (
-                      <div className="bg-[#e3ebf3] rounded-md p-2">
-                        <h2 className="font-semibold">User</h2>
+                      <div className="bg-[#e3ebf3] space-y-2 rounded-md p-2">
+                        <section className="flex items-center gap-1">
+                          <h2 className="font-semibold">User</h2>
+                          <UserCircle2 />
+                        </section>
+
                         <p className="text-secondary-foreground">
                           {entry.input}
                         </p>
                       </div>
                     )}
                     {entry.response && (
-                      <div className="bg-secondary p-2 rounded-md">
+                      <div className="bg-secondary p-2 space-y-2 rounded-md">
                         <section className="flex items-center gap-1">
                           {" "}
                           <h2 className="font-semibold">MediMind</h2>
@@ -78,6 +95,13 @@ const Chat = () => {
                   </div>
                 );
               })}
+              {isLoading && (
+                <div className="flex">
+                  <span className="circle animate-loader"></span>
+                  <span className="circle animate-loader animation-delay-200"></span>
+                  <span className="circle animate-loader animation-delay-400"></span>
+                </div>
+              )}
             </div>
           </div>
         </div>

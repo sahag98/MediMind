@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className="flex fixed w-full backdrop-blur-md border-b p-2 items-center justify-between">
+    <nav className="flex fixed w-full md:px-24 px-4 z-10 backdrop-blur-md border-b p-2 items-center justify-between">
       <Link href="/">
         <Image
           src="/medimind.png"
@@ -18,9 +18,9 @@ const Navbar = () => {
       </Link>
       <ul className="flex items-center gap-x-3">
         <Button variant={"outline"}>Sign In</Button>
-        <Button>
+        {/* <Button>
           <span>Get Started</span> <ArrowRight className="ml-2" />
-        </Button>
+        </Button> */}
       </ul>
     </nav>
   );
