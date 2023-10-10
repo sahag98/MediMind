@@ -29,7 +29,7 @@ export default function Home() {
           <p className="md:text-base text-sm text-secondary-foreground text-center opacity-75">
             Experience instant symptom analysis with our advanced AI doctor.
           </p>
-          <section className="space-x-4">
+          <section className="flex space-x-4">
             <Disclaimer />
             <Button
               className="mt-5 px-2 space-x-3"

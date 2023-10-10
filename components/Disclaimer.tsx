@@ -28,33 +28,35 @@ export function Disclaimer() {
           Get Started
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-secondary">
-        <AlertDialogHeader>
-          <section className="flex items-center gap-1">
-            <AlertDialogTitle className="text-yellow-500">
-              Disclaimer
-            </AlertDialogTitle>
-            <AlertTriangle className="text-yellow-500" />
-          </section>
-          <AlertDialogDescription>
-            MediMind may provide completely inaccurate responses and is not
-            responsible for any kind of mistreatments and damage caused by its
-            consultation. Use MediMind at your own risk and discretion.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={async (e) => {
-              e.preventDefault();
-              const chatId = await startConsultation({});
-              router.push(`/chat/${chatId}`);
-            }}
-          >
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+      <div className="mx-5">
+        <AlertDialogContent className="bg-secondary rounded-md w-5/6">
+          <AlertDialogHeader>
+            <section className="flex items-center gap-1">
+              <AlertDialogTitle className="text-yellow-500">
+                Disclaimer
+              </AlertDialogTitle>
+              <AlertTriangle className="text-yellow-500" />
+            </section>
+            <AlertDialogDescription className="text-left">
+              MediMind may provide completely inaccurate responses and is not
+              responsible for any kind of mistreatments and damage caused by its
+              consultation. Use MediMind at your own risk and discretion.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async (e) => {
+                e.preventDefault();
+                const chatId = await startConsultation({});
+                router.push(`/chat/${chatId}`);
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </div>
     </AlertDialog>
   );
 }
