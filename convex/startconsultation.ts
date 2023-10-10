@@ -40,7 +40,7 @@ export const getAllChats = query({
   //   chatId: v.id("consultations"),
   // },
   handler: async (ctx) => {
-    const entries = await ctx.db.query("consultations").collect();
+    const entries = await ctx.db.query("consultations").order("desc").collect();
 
     return entries;
   },

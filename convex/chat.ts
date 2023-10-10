@@ -85,6 +85,7 @@ export const getAllEntries = query({
     const entries = await ctx.db
       .query("entries")
       .filter((q) => q.eq(q.field("consultationId"), args.chatId))
+      .order("desc")
       .collect();
 
     return entries;
