@@ -22,7 +22,7 @@ const Navbar = () => {
       <ul className="flex items-center gap-x-3">
         <Button
           onClick={() => router.push("/history")}
-          className="bg-white md:hidden border border-primary"
+          className="bg-white border border-primary"
         >
           <span className="text-primary">History</span>{" "}
           <History className="ml-2 text-primary" />

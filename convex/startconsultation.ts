@@ -13,7 +13,9 @@ const openai = new OpenAI();
 
 export const createConsultation = mutation({
   handler: async (ctx) => {
-    const id = await ctx.db.insert("consultations", {});
+    const id = await ctx.db.insert("consultations", {
+      name: "Chat",
+    });
 
     await ctx.scheduler.runAfter(
       0,
@@ -43,6 +45,17 @@ export const getAllChats = query({
     const entries = await ctx.db.query("consultations").order("desc").collect();
 
     return entries;
+  },
+});
+
+export const editConsultationName = mutation({
+  args: {
+    name: v.string(),
+    consultationId: v.id("consultations"),
+  },
+  handler: async (ctx, args) => {
+    const { consultationId, name } = args;
+    await ctx.db.patch(consultationId, { name: name });
   },
 });
 

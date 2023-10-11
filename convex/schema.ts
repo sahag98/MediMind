@@ -7,5 +7,7 @@ export default defineSchema({
     response: v.string(),
     consultationId: v.id("consultations"),
   }),
-  consultations: defineTable({}),
+  consultations: defineTable({
+    name: v.string(),
+  }),
 });

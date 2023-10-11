@@ -135,5 +135,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    @apply scroll-smooth;
   }
 }

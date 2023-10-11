@@ -6,6 +6,7 @@ import {
   Bot,
   Loader2,
   Mic,
+  Pencil,
   SendHorizontal,
   User2,
   UserCircle2,
@@ -17,22 +18,27 @@ import { useAction, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useChat } from "ai/react";
 import AnimateWord from "@/components/AnimateWord";
+import { useMutation } from "convex/react";
+import { EditDialog } from "@/components/editDialog";
 
 const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const [message, setMessage] = useState("");
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const consultationId = props.params.chatId;
   const contentRef = useRef(null);
+  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // const { messages, input, handleInputChange, handleSubmit } = useChat();
   // console.log(messages);
   const startConversation = useAction(api.chat.handlePlayerAction);
+
   const entries = useQuery(api.chat.getAllEntries, {
     chatId: consultationId,
   });
 
   // const [isloading, setIsLoading] = useState(false);
   // console.log(isloading);
+
   const handleMsgSubmit = async (e: any) => {
     if (message.length == 0) {
       return;
@@ -77,13 +83,16 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
                 alt="chat image"
               />
               <div className="flex flex-col gap-1 mb-24">
-                <span className="text-primary text-center text-base">
-                  How are you feeling today?
-                </span>
-                <span className="text-secondary-foreground text-center text-sm mb-10">
-                  The more accurate your responses, the easier and faster
-                  I&apos;ll be able to help you.
-                </span>
+                <div className="flex flex-col justify-center items-center gap-1 mb-4">
+                  <span className="text-primary text-center text-base">
+                    How are you feeling today?
+                  </span>
+                  <span className="text-secondary-foreground text-center mb-1 text-sm">
+                    The more accurate your responses, the easier I&apos;ll be
+                    able to help you.
+                  </span>
+                  <EditDialog consultationId={consultationId} />
+                </div>
                 <div
                   ref={contentRef}
                   className="flex flex-col overflow-y-auto md:gap-0 gap-2"
@@ -136,7 +145,7 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
               onSubmit={handleMsgSubmit}
               className="flex fixed z-10 bottom-4 px-4 items-center justify-center w-full"
             >
-              <Mic className="mr-2 h-12 w-12 text-primary hover:bg-primary/10 rounded-full transition-all p-2" />
+              {/* <Mic className="mr-2 h-12 w-12 text-gray-400 hover:bg-primary/10 rounded-full transition-all p-2" /> */}
               <Input
                 disabled={isLoading}
                 placeholder="How are you feeling?"

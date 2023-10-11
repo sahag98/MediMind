@@ -31,7 +31,7 @@ const ChatHistory = ({ params }: any) => {
   };
 
   return (
-    <div className="flex border-r relative h-screen flex-col items-center w-72 gap-10 mt-[73px]">
+    <div className="flex border-r relative h-screen flex-col items-center w-72 gap-5 mt-[73px]">
       <div className="w-full">
         <section className="flex mt-5 px-2 justify-between items-center gap-2">
           <div className="flex items-center gap-2">
@@ -53,40 +53,45 @@ const ChatHistory = ({ params }: any) => {
           </Button>
         </section>
       </div>
-      <div className="w-full p-2 overflow-y-auto">
-        {entries?.map((entry) => (
-          <div key={entry._id}>
-            {entry._id == params ? (
-              <Button
-                onClick={() => handleHistory(entry._id)}
-                className={
-                  "text-primary-foreground transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
-                }
-                key={entry._id}
-              >
-                <span className="">
+      {entries?.length == 0 ? (
+        <div className=" h-full flex justify-center items-center">
+          <span className="mb-10 font-semibold">No chats yet!</span>
+        </div>
+      ) : (
+        <div className="w-full p-2 overflow-y-auto">
+          {entries?.map((entry) => (
+            <div key={entry._id}>
+              {entry._id == params ? (
+                <Button
+                  onClick={() => handleHistory(entry._id)}
+                  className={
+                    "text-primary-foreground transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
+                  }
+                  key={entry._id}
+                >
+                  {/* <span className="">
                   {convertMillisecondsToDate(entry._creationTime)}
-                </span>
-                <ArrowBigRight className="" />
-              </Button>
-            ) : (
-              <Button
-                variant={"ghost"}
-                onClick={() => handleHistory(entry._id)}
-                className={
-                  "text-primary transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
-                }
-                key={entry._id}
-              >
-                <span className="">
-                  {convertMillisecondsToDate(entry._creationTime)}
-                </span>
-                <ArrowBigRight className="" />
-              </Button>
-            )}
-          </div>
-        ))}
-      </div>
+                </span> */}
+                  <span>{entry.name}</span>
+                  <ArrowBigRight className="" />
+                </Button>
+              ) : (
+                <Button
+                  variant={"ghost"}
+                  onClick={() => handleHistory(entry._id)}
+                  className={
+                    "text-primary transition-all hover:text-primary-foreground hover:bg-primary flex items-center justify-between w-full border-secondary-foreground rounded-md p-2 h-12"
+                  }
+                  key={entry._id}
+                >
+                  <span>{entry.name}</span>
+                  <ArrowBigRight className="" />
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
