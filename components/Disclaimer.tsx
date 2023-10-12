@@ -74,6 +74,7 @@ export function Disclaimer() {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
+
                 <AlertDialogAction onClick={handleStart}>
                   Continue
                 </AlertDialogAction>

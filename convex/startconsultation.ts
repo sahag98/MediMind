@@ -8,6 +8,7 @@ import {
 import OpenAI from "openai";
 import { api, internal } from "./_generated/api";
 import { OpenAIStream, StreamingTextResponse } from "ai";
+import { useUser } from "@clerk/clerk-react";
 
 const openai = new OpenAI();
 
@@ -42,6 +43,7 @@ export const getAllChats = query({
   //   chatId: v.id("consultations"),
   // },
   handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
     const entries = await ctx.db.query("consultations").order("desc").collect();
 
     return entries;

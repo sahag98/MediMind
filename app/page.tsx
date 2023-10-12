@@ -2,13 +2,16 @@
 import AnimatedTextCharacter from "@/components/AnimateTextWord";
 import { Disclaimer } from "@/components/Disclaimer";
 import HowitWorks from "@/components/HowitWorks";
+import { useConvexAuth } from "convex/react";
 import { Button } from "@/components/ui/button";
-
+import { useUser } from "@clerk/clerk-react";
 import { Brain } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  const { isLoading, isAuthenticated } = useConvexAuth();
+  console.log(isAuthenticated);
   return (
     <>
       <main className="flex flex-col md:gap-0 md:mt-0 mt-20 gap-10 md:flex-row min-h-screen md:px-28 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white to-white items-center justify-center md:justify-between">
@@ -22,7 +25,7 @@ export default function Home() {
           <p className="md:text-base text-sm text-secondary-foreground text-center opacity-75">
             Experience instant symptom analysis with our advanced AI doctor.
           </p>
-          <section className="flex space-x-4">
+          <section className="flex space-x-2">
             <Disclaimer />
             <Link href="#works">
               <Button
