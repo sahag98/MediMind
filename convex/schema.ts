@@ -9,5 +9,6 @@ export default defineSchema({
   }),
   consultations: defineTable({
     name: v.string(),
+    user_id: v.string(),
   }),
 });

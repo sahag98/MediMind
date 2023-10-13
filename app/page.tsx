@@ -10,8 +10,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const { isLoading, isAuthenticated } = useConvexAuth();
-  console.log(isAuthenticated);
   return (
     <>
       <main className="flex flex-col md:gap-0 md:mt-0 mt-20 gap-10 md:flex-row min-h-screen md:px-28 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white to-white items-center justify-center md:justify-between">

@@ -31,7 +31,11 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   // const { messages, input, handleInputChange, handleSubmit } = useChat();
   // console.log(messages);
   const startConversation = useAction(api.chat.handlePlayerAction);
+  const consultation = useQuery(api.startconsultation.getConsultation, {
+    consultationId: consultationId,
+  });
 
+  console.log("cons: ", consultation?.name);
   const entries = useQuery(api.chat.getAllEntries, {
     chatId: consultationId,
   });
@@ -68,12 +72,12 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
           <Loader2 className="animate-spin h-10 w-10 text-primary" />
         </div>
       ) : (
-        <div className="flex relative min-h-screen w-full px-4 md:px-0">
-          <div className="md:w-1/4 hidden md:flex">
+        <div className="flex relative min-h-screen w-full px-4 lg:px-0">
+          <div className="lg:w-1/4 hidden md:hidden lg:flex">
             <ChatHistory params={consultationId} />
           </div>
 
-          <div className="md:w-1/2 w-full relative mt-20 flex flex-col justify-center items-center">
+          <div className="lg:w-1/2 w-full relative mt-20 flex flex-col justify-center items-center">
             <div className="flex flex-col  items-center overflow-y-auto scrollbar-hide justify-center gap-5">
               <Image
                 src="/chat-img.png"
@@ -91,16 +95,19 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
                     The more accurate your responses, the easier I&apos;ll be
                     able to help you.
                   </span>
-                  <EditDialog consultationId={consultationId} />
+                  <EditDialog
+                    consultationName={consultation?.name!}
+                    consultationId={consultationId}
+                  />
                 </div>
                 <div
                   ref={contentRef}
-                  className="flex flex-col overflow-y-auto md:gap-0 gap-2"
+                  className="flex flex-col overflow-y-auto gap-2"
                 >
                   {entries?.map((entry) => {
                     return (
                       <div
-                        className="flex flex-col gap-2 md:p-2"
+                        className="flex flex-col gap-2 md:p-0"
                         key={entry._id}
                       >
                         {entry.input && (
@@ -132,10 +139,17 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
                     );
                   })}
                   {isLoading && (
-                    <div className="flex">
-                      <span className="circle animate-loader"></span>
-                      <span className="circle animate-loader animation-delay-200"></span>
-                      <span className="circle animate-loader animation-delay-400"></span>
+                    <div className="flex bg-secondary rounded-md p-2 flex-col">
+                      <section className="flex items-center gap-1">
+                        {" "}
+                        <h2 className="font-semibold">MediMind</h2>
+                        <Bot />
+                      </section>
+                      <div className="flex">
+                        <span className="circle animate-loader"></span>
+                        <span className="circle animate-loader animation-delay-200"></span>
+                        <span className="circle animate-loader animation-delay-400"></span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -151,7 +165,7 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
                 placeholder="How are you feeling?"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="md:w-1/2 shadow-md shadow-primary/20 bg-secondary"
+                className="lg:w-1/2 shadow-md shadow-primary/20 bg-secondary"
               />
               <button disabled={isLoading}>
                 <SendHorizontal

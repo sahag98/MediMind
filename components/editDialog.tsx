@@ -21,11 +21,13 @@ import { Input } from "./ui/input";
 
 export function EditDialog({
   consultationId,
+  consultationName,
 }: {
   consultationId: Id<"consultations">;
+  consultationName: string;
 }) {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(consultationName);
   const [isLoading, setIsLoading] = useState(false);
   const editConsultationName = useMutation(
     api.startconsultation.editConsultationName
@@ -62,7 +64,7 @@ export function EditDialog({
             </section>
             <AlertDialogDescription className="text-left">
               <Input
-                placeholder="Edit chat name"
+                placeholder={"Edit chat name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />

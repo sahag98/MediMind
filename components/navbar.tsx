@@ -45,36 +45,6 @@ const Navbar = () => {
             <UserButton afterSignOutUrl="/" />
           </>
         )}
-        {/* <SignedIn>
-          <Button
-            size={"sm"}
-            onClick={() => router.push("/history")}
-            className="bg-white border text-primary hover:text-primary-foreground border-primary"
-          >
-            <span>History</span> <History className="ml-2" />
-          </Button>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton afterSignInUrl="/">
-            <Button variant={"outline"}>Sign In</Button>
-          </SignInButton>
-        </SignedOut> */}
-        {/* {user ? (
-          <div>
-            <Image
-              className="rounded-full"
-              src={user.imageUrl}
-              alt="user img"
-              width={40}
-              height={40}
-            />
-          </div>
-        ) : (
-          <SignInButton afterSignInUrl="/">
-            <Button variant={"outline"}>Sign In</Button>
-          </SignInButton>
-        )} */}
       </ul>
     </nav>
   );

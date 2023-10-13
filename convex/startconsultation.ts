@@ -14,8 +14,12 @@ const openai = new OpenAI();
 
 export const createConsultation = mutation({
   handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    console.log("identity: ", identity);
+
     const id = await ctx.db.insert("consultations", {
       name: "Chat",
+      user_id: identity?.subject ? identity?.subject : "",
     });
 
     await ctx.scheduler.runAfter(
@@ -29,7 +33,7 @@ export const createConsultation = mutation({
   },
 });
 
-export const getConsultation = internalQuery({
+export const getConsultation = query({
   args: {
     consultationId: v.id("consultations"),
   },
@@ -38,13 +42,22 @@ export const getConsultation = internalQuery({
   },
 });
 
-export const getAllChats = query({
+export const getUserHistory = query({
   // args: {
   //   chatId: v.id("consultations"),
   // },
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    const entries = await ctx.db.query("consultations").order("desc").collect();
+    console.log("identity: ", identity);
+
+    if (identity === null) {
+      return;
+    }
+    const entries = await ctx.db
+      .query("consultations")
+      .filter((q) => q.eq(q.field("user_id"), identity.subject))
+      .order("desc")
+      .collect();
 
     return entries;
   },
@@ -67,7 +80,7 @@ export const setupConsultation = internalAction({
   },
   handler: async (ctx, args) => {
     const consultation = await ctx.runQuery(
-      internal.startconsultation.getConsultation,
+      api.startconsultation.getConsultation,
       args
     );
 
