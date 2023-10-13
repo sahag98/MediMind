@@ -20,11 +20,14 @@ import { useChat } from "ai/react";
 import AnimateWord from "@/components/AnimateWord";
 import { useMutation } from "convex/react";
 import { EditDialog } from "@/components/editDialog";
+import { useConvexAuth } from "convex/react";
 
 const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
   const [message, setMessage] = useState("");
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const consultationId = props.params.chatId;
+
+  const { isAuthenticated } = useConvexAuth();
   const contentRef = useRef(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -95,10 +98,12 @@ const Chat = (props: { params: { chatId: Id<"consultations"> } }) => {
                     The more accurate your responses, the easier I&apos;ll be
                     able to help you.
                   </span>
-                  <EditDialog
-                    consultationName={consultation?.name!}
-                    consultationId={consultationId}
-                  />
+                  {isAuthenticated && (
+                    <EditDialog
+                      consultationName={consultation?.name!}
+                      consultationId={consultationId}
+                    />
+                  )}
                 </div>
                 <div
                   ref={contentRef}
