@@ -42,7 +42,7 @@ const Page = ({ params }: any) => {
         </div>
       )}
       {isAuthenticated && !isLoading && (
-        <div className="flex relative h-screen flex-col items-center w-full gap-5 mt-[73px]">
+        <div className="flex relative  px-2 md:px-24 h-screen flex-col items-center w-full gap-5 mt-[73px]">
           <div className="w-full">
             <section className="flex mt-5 px-2 justify-between items-center gap-2">
               <div className="flex items-center gap-2">
@@ -65,7 +65,7 @@ const Page = ({ params }: any) => {
             </section>
           </div>
           {entries?.length == 0 ? (
-            <div className=" h-full flex justify-center items-center">
+            <div className="h-full flex justify-center items-center">
               <span className="mb-10 font-semibold">No chats yet!</span>
             </div>
           ) : (

@@ -11,4 +11,10 @@ export default defineSchema({
     name: v.string(),
     user_id: v.string(),
   }),
+  reviews: defineTable({
+    review: v.string(),
+    user_id: v.string(),
+    user_name: v.string(),
+    user_image: v.string(),
+  }),
 });

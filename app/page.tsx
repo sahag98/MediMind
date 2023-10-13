@@ -8,6 +8,8 @@ import { useUser } from "@clerk/clerk-react";
 import { Brain } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Reviews from "@/components/Reviews";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -48,6 +50,8 @@ export default function Home() {
       <div className="md:px-24 px-4">
         <HowitWorks />
       </div>
+      <Reviews />
+      <Footer />
     </>
   );
 }
