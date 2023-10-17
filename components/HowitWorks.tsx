@@ -4,7 +4,7 @@ const HowitWorks = () => {
   return (
     <div
       id="works"
-      className="flex justify-center gap-7 mb-10 items-center flex-col"
+      className="flex justify-center gap-7 mb-24 items-center flex-col"
     >
       <h2 className="text-center text-3xl font-bold text-secondary-foreground">
         How It Works
