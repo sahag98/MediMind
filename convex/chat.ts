@@ -43,7 +43,7 @@ export const handlePlayerAction = action({
       messages: [
         {
           role: "user",
-          content: `${prefix}${userPrompt}`,
+          content: `${prefix}${userPrompt} Use emojis in each response.`,
         },
       ],
       model: "gpt-3.5-turbo",
